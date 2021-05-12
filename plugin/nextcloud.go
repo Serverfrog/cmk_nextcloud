@@ -59,7 +59,7 @@ func printNextcloudSoftware(info NextcloudInfo) {
 	fmt.Println(i2s(system.SwapTotal) + "|" + i2s(system.SwapFree) + "|" + i2s(system.SwapTotal-system.SwapFree))
 }
 
-func printNextcloudApps(info NextcloudInfo){
+func printNextcloudApps(info NextcloudInfo) {
 	printSegmentHeader("nextcloud_apps")
 	var apps = info.Ocs.Data.Nextcloud.System.Apps
 	fmt.Println(i2s(apps.NumInstalled) + "|" + i2s(apps.NumUpdatesAvailable))
@@ -70,11 +70,11 @@ func printNextcloudApps(info NextcloudInfo){
 	fmt.Println(string(b))
 }
 
-func printNextcloudSystem(info NextcloudInfo){
+func printNextcloudSystem(info NextcloudInfo) {
 	printSegmentHeader("nextcloud_server")
-	var opcache =info.Ocs.Data.Server.Php.Opcache
-	var mem =opcache.MemoryUsage
-	fmt.Println(i2s(mem.UsedMemory) + "|" + i2s(mem.FreeMemory) + "|" + i2s(mem.WastedMemory) + "|" + fmt.Sprintf("%f",mem.CurrentWastedPercentage))
+	var opcache = info.Ocs.Data.Server.Php.Opcache
+	var mem = opcache.MemoryUsage
+	fmt.Println(i2s(mem.UsedMemory) + "|" + i2s(mem.FreeMemory) + "|" + i2s(mem.WastedMemory) + "|" + fmt.Sprintf("%f", mem.CurrentWastedPercentage))
 }
 
 func main() {
@@ -116,7 +116,6 @@ func i2s(i int) string {
 	return strconv.Itoa(i)
 }
 
-
 type NextcloudInfo struct {
 	Ocs struct {
 		Meta struct {
@@ -143,9 +142,9 @@ type NextcloudInfo struct {
 					SwapTotal           int       `json:"swap_total"`
 					SwapFree            int       `json:"swap_free"`
 					Apps                struct {
-						NumInstalled        int           `json:"num_installed"`
-						NumUpdatesAvailable int           `json:"num_updates_available"`
-						AppUpdates          []interface{} `json:"app_updates"`
+						NumInstalled        int                    `json:"num_installed"`
+						NumUpdatesAvailable int                    `json:"num_updates_available"`
+						AppUpdates          map[string]interface{} `json:"app_updates"`
 					} `json:"apps"`
 				} `json:"system"`
 				Storage struct {
